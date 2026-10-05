@@ -77,10 +77,39 @@ MISION_LARGA = [
     ("detenerse",),
 ]
 
+# Mision Zigzag: avanza alternando giros de evasion izquierda/derecha.
+MISION_ZIGZAG = [
+    ("saludar",),
+    ("avanzar", 0.2, 2.0),          # avanza 0.4 m al frente
+    ("girar", 0.5, 1.57),           # gira 45 grados a la izquierda
+    ("avanzar", 0.15, 2.0),         # avanza 0.3 m en diagonal
+    ("girar", -0.5, 3.14),          # gira 90 grados a la derecha
+    ("avanzar", 0.15, 2.0),         # avanza 0.3 m en diagonal
+    ("girar", 0.5, 1.57),           # se realinea al frente original
+    ("avanzar", 0.2, 2.0),          # avanza 0.4 m al frente
+    ("detenerse",),
+]
+
+# Mision Patrulla: avanza a un puesto, hace inspeccion panoramica de 360 grados
+# (en 2 pasos de 180 para respetar el limite maximo de 10s), retorna y saluda.
+MISION_PATRULLA = [
+    ("avanzar", 0.2, 3.0),          # avanza 0.6 m al punto de control
+    ("saludar",),                   # senal de inicio de inspeccion
+    ("girar", 0.5, 6.28),           # primer semicirculo de escaneo (180 grados)
+    ("girar", 0.5, 6.28),           # segundo semicirculo (completa los 360 grados)
+    ("girar", -0.5, 6.28),          # media vuelta para regresar al origen
+    ("avanzar", 0.2, 3.0),          # regresa 0.6 m al punto inicial
+    ("girar", 0.5, 6.28),           # reorienta mirando al frente inicial
+    ("saludar",),                   # saludo de mision cumplida
+    ("detenerse",),
+]
+
 # Todas juntas, por si queres elegir desde un menu.
 MISIONES = {
     "basica": MISION_BASICA,
     "cuadrado": MISION_CUADRADO,
     "errores": MISION_CON_ERRORES,
     "larga": MISION_LARGA,
+    "zigzag": MISION_ZIGZAG,
+    "patrulla": MISION_PATRULLA,
 }
